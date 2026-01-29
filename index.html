@@ -3,261 +3,309 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shardex SMP • Official Server</title>
+<title>Shardex SMP • Official Network</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap');
-
 *{margin:0;padding:0;box-sizing:border-box}
 body{
-  font-family:'Orbitron',sans-serif;
+  font-family:'Montserrat',sans-serif;
   background:#050505;
   color:#fff;
   overflow-x:hidden;
 }
 
-/* ===== PARTICLES ===== */
+/* ================= PARTICLES ================= */
 .dot{
   position:absolute;
   background:orange;
   border-radius:50%;
-  opacity:.7;
-  animation:float linear infinite;
+  opacity:.25;
+  animation:fall linear infinite;
 }
-@keyframes float{
+@keyframes fall{
   from{transform:translateY(-10vh)}
   to{transform:translateY(110vh)}
 }
 
-/* ===== HEADER ===== */
-header{
-  position:fixed;
-  top:0;left:0;
-  width:100%;
-  padding:16px 22px;
+/* ================= LAYOUT ================= */
+.container{
   display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background:rgba(0,0,0,.85);
-  backdrop-filter:blur(8px);
-  z-index:999;
-}
-header h1{
-  font-size:1.4rem;
-  color:orange;
-  letter-spacing:2px;
+  min-height:100vh;
 }
 
-/* ===== MENU ===== */
-.menu-btn{
-  width:30px;
-  cursor:pointer;
-}
-.menu-btn span{
-  display:block;
-  height:4px;
-  background:orange;
-  margin:5px 0;
-  border-radius:2px;
-}
-
-nav{
+/* ================= SIDEBAR ================= */
+.sidebar{
+  width:230px;
+  background:#0b0b0b;
+  padding:25px 15px;
   position:fixed;
-  top:70px;
-  right:-230px;
-  width:200px;
-  height:calc(100vh - 70px);
-  background:#0a0a0a;
-  transition:.4s;
-  padding-top:25px;
+  height:100%;
+  box-shadow:0 0 30px rgba(255,165,0,.15);
+  z-index:10;
 }
-nav a{
-  display:block;
-  padding:14px 22px;
-  color:#fff;
+.logo{
+  font-size:1.4rem;
+  font-weight:800;
+  color:orange;
+  text-align:center;
+  margin-bottom:35px;
+}
+.nav a{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 16px;
+  margin-bottom:10px;
+  border-radius:10px;
+  color:#ddd;
   text-decoration:none;
   transition:.3s;
+  cursor:pointer;
 }
-nav a:hover{
+.nav a:hover,
+.nav a.active{
+  background:linear-gradient(135deg,orange,#ffb347);
+  color:#000;
+  box-shadow:0 0 20px rgba(255,165,0,.6);
+}
+
+/* ================= CONTENT ================= */
+.content{
+  margin-left:230px;
+  padding:50px 25px;
+  width:100%;
+}
+.page{
+  display:none;
+  animation:fade .4s ease;
+}
+.page.active{display:block}
+@keyframes fade{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:none}
+}
+
+/* ================= HOME ================= */
+.server-box{
+  background:rgba(255,165,0,.1);
+  border-radius:18px;
+  padding:25px;
+  max-width:420px;
+  box-shadow:0 0 30px rgba(255,165,0,.25);
+}
+.copy{
+  background:#111;
+  padding:12px 16px;
+  border-radius:10px;
+  margin:12px 0;
+  cursor:pointer;
+  transition:.3s;
+}
+.copy:hover{
   background:orange;
   color:#000;
 }
 
-/* ===== SECTIONS ===== */
-section{
-  display:none;
-  padding:120px 18px 60px;
-  text-align:center;
-}
-section.active{display:block}
-
-/* ===== HOME ===== */
-.server-box{
+/* ================= DISCORD ================= */
+.discord{
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
   margin-top:20px;
-  padding:18px;
+  padding:14px 28px;
+  background:linear-gradient(135deg,#5865F2,#4752c4);
   border-radius:14px;
-  background:rgba(255,165,0,.15);
-  box-shadow:0 0 25px rgba(255,165,0,.25);
-}
-.discord-btn{
-  display:inline-block;
-  margin-top:18px;
-  padding:12px 26px;
-  background:#5865F2;
-  border-radius:10px;
   color:white;
   text-decoration:none;
+  font-weight:700;
+  box-shadow:0 0 25px rgba(88,101,242,.6);
   transition:.3s;
 }
-.discord-btn:hover{transform:scale(1.08)}
+.discord:hover{
+  transform:translateY(-4px) scale(1.05);
+}
 
-/* ===== CARDS ===== */
+/* ================= CARDS ================= */
 .cards{
   display:flex;
   flex-wrap:wrap;
-  justify-content:center;
-  gap:22px;
-  margin-top:35px;
+  gap:25px;
+  margin-top:30px;
 }
 .card{
-  width:160px;
-  padding:20px;
-  border-radius:16px;
   background:rgba(255,255,255,.05);
-  backdrop-filter:blur(6px);
-  box-shadow:0 0 18px rgba(255,165,0,.25);
+  padding:22px;
+  width:170px;
+  border-radius:18px;
+  text-align:center;
+  box-shadow:0 0 20px rgba(255,165,0,.2);
   transition:.35s;
 }
 .card:hover{
-  transform:translateY(-8px) scale(1.05);
-  box-shadow:0 0 35px orange;
+  transform:translateY(-8px);
+  box-shadow:0 0 35px rgba(255,165,0,.6);
 }
 .card img{
-  width:80px;height:80px;
+  width:80px;
   margin-bottom:12px;
 }
 
-/* ===== STAFF COLORS ===== */
-.founder{background:linear-gradient(135deg,#ff8c00,#ffb347)}
+/* ================= STAFF COLORS ================= */
+.founder{background:linear-gradient(135deg,#ff9800,#ffcc80)}
 .xfounder{background:linear-gradient(135deg,#00e5ff,#80d8ff);color:#000}
 .coowner{background:linear-gradient(135deg,#ff1744,#ff616f)}
 .admin{background:linear-gradient(135deg,#2979ff,#82b1ff)}
 
-/* ===== SNEAK ===== */
+/* ================= SNEAK ================= */
 .placeholder{
-  width:150px;
-  height:150px;
-  border-radius:14px;
-  background:rgba(255,165,0,.15);
-  box-shadow:0 0 18px rgba(255,165,0,.3);
+  width:160px;
+  height:160px;
+  border-radius:16px;
+  background:rgba(255,165,0,.12);
+  box-shadow:inset 0 0 20px rgba(255,165,0,.4);
 }
 
-/* ===== DESKTOP ===== */
-@media(min-width:768px){
-  nav{
+/* ================= TOAST ================= */
+.toast{
+  position:fixed;
+  bottom:25px;
+  right:25px;
+  background:orange;
+  color:#000;
+  padding:14px 22px;
+  border-radius:12px;
+  font-weight:700;
+  display:none;
+  box-shadow:0 0 25px rgba(255,165,0,.8);
+}
+
+/* ================= MOBILE ================= */
+@media(max-width:768px){
+  .sidebar{
     position:relative;
-    right:0;
+    width:100%;
     height:auto;
     display:flex;
-    flex-direction:row;
-    background:transparent;
-    padding:0;
+    justify-content:space-around;
   }
-  nav a{padding:8px 14px}
-  .menu-btn{display:none}
+  .content{margin-left:0}
+  .nav a span{display:none}
 }
 </style>
 </head>
 
 <body>
 
-<header>
-<h1>SHARDEX SMP</h1>
-<div class="menu-btn" onclick="toggleMenu()">
-<span></span><span></span><span></span>
+<div class="container">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="logo">SHARDEX SMP</div>
+  <div class="nav">
+    <a class="active" onclick="show('home')">🏠 <span>Home</span></a>
+    <a onclick="show('shop')">🛒 <span>Shop</span></a>
+    <a onclick="show('staff')">👑 <span>Staff</span></a>
+    <a onclick="show('features')">⚙️ <span>Features</span></a>
+    <a onclick="show('sneak')">📸 <span>Sneak Peeks</span></a>
+  </div>
 </div>
-<nav id="nav">
-<a onclick="showPage('home')">Home</a>
-<a onclick="showPage('shop')">Shop</a>
-<a onclick="showPage('staff')">Staff</a>
-<a onclick="showPage('features')">Features</a>
-<a onclick="showPage('sneak')">Sneak Peeks</a>
-</nav>
-</header>
+
+<!-- CONTENT -->
+<div class="content">
 
 <!-- HOME -->
-<section id="home" class="active">
-<h2>Official Minecraft SMP</h2>
-<div class="server-box">
-<p>IP: <b>shardexmcs2.aternos.me</b></p>
-<p>Port: <b>14060</b></p>
+<div class="page active" id="home">
+  <h1>Official Minecraft SMP Network</h1>
+  <div class="server-box">
+    <div class="copy" onclick="copyText('shardexmcs2.aternos.me')">
+      IP: shardexmcs2.aternos.me
+    </div>
+    <div class="copy" onclick="copyText('14060')">
+      Port: 14060
+    </div>
+    <a class="discord" href="https://discord.gg/JKjxfYVF2b" target="_blank">
+      💬 Join Discord
+    </a>
+  </div>
 </div>
-<a class="discord-btn" href="https://discord.gg/JKjxfYVF2b" target="_blank">Join Discord</a>
-</section>
 
 <!-- SHOP -->
-<section id="shop">
-<h2>Ranks Shop</h2>
-<div class="cards">
-<div class="card"><img src="pixie_cookie.png"><h3>Cookie</h3></div>
-<div class="card"><img src="pixie_potato.png"><h3>Potato</h3></div>
-<div class="card"><img src="pixie_pink_cherry.png"><h3>Cherry</h3></div>
-<div class="card"><img src="pixie_lychee.png"><h3>Lychee</h3></div>
-<div class="card"><img src="pixie_apple.png"><h3>Apple</h3></div>
+<div class="page" id="shop">
+  <h1>Ranks Store</h1>
+  <div class="cards">
+    <div class="card"><img src="pixie_cookie.png"><b>Cookie</b></div>
+    <div class="card"><img src="pixie_potato.png"><b>Potato</b></div>
+    <div class="card"><img src="pixie_pink_cherry.png"><b>Cherry</b></div>
+    <div class="card"><img src="pixie_lychee.png"><b>Lychee</b></div>
+    <div class="card"><img src="pixie_apple.png"><b>Apple</b></div>
+  </div>
 </div>
-</section>
 
 <!-- STAFF -->
-<section id="staff">
-<h2>Server Staff</h2>
-<div class="cards">
-<div class="card founder">.helloshardex<br>Founder</div>
-<div class="card xfounder">Surydipgohil1<br>X Founder</div>
-<div class="card coowner">M.zarrar<br>Co Owner</div>
-<div class="card admin">NotxKaizen<br>Admin</div>
+<div class="page" id="staff">
+  <h1>Server Management</h1>
+  <div class="cards">
+    <div class="card founder">.helloshardex<br>Founder</div>
+    <div class="card xfounder">Surydipgohil1<br>X Founder</div>
+    <div class="card coowner">M.zarrar<br>Co Owner</div>
+    <div class="card admin">NotxKaizen<br>Admin</div>
+  </div>
 </div>
-</section>
 
 <!-- FEATURES -->
-<section id="features">
-<h2>Server Features</h2>
-<div class="cards">
-<div class="card">Crates</div>
-<div class="card">Shop</div>
-<div class="card">Ranks</div>
-<div class="card">Kits</div>
-<div class="card">Giveaways</div>
+<div class="page" id="features">
+  <h1>Server Features</h1>
+  <div class="cards">
+    <div class="card">Crates</div>
+    <div class="card">Shop</div>
+    <div class="card">Ranks</div>
+    <div class="card">Kits</div>
+    <div class="card">Giveaways</div>
+  </div>
 </div>
-</section>
 
 <!-- SNEAK -->
-<section id="sneak">
-<h2>Sneak Peeks</h2>
-<div class="cards">
-<div class="placeholder"></div>
-<div class="placeholder"></div>
-<div class="placeholder"></div>
-<div class="placeholder"></div>
+<div class="page" id="sneak">
+  <h1>Sneak Peeks</h1>
+  <div class="cards">
+    <div class="placeholder"></div>
+    <div class="placeholder"></div>
+    <div class="placeholder"></div>
+  </div>
 </div>
-</section>
+
+</div>
+</div>
+
+<div class="toast" id="toast">Copied!</div>
 
 <script>
-for(let i=0;i<45;i++){
- let d=document.createElement('div');
- d.className='dot';
- d.style.left=Math.random()*100+'vw';
- d.style.width=d.style.height=5+Math.random()*10+'px';
- d.style.animationDuration=4+Math.random()*6+'s';
- document.body.appendChild(d);
+/* PARTICLES */
+for(let i=0;i<35;i++){
+  let d=document.createElement('div');
+  d.className='dot';
+  d.style.left=Math.random()*100+'vw';
+  d.style.width=d.style.height=4+Math.random()*8+'px';
+  d.style.animationDuration=6+Math.random()*6+'s';
+  document.body.appendChild(d);
 }
-function toggleMenu(){
- let n=document.getElementById('nav');
- n.style.right = n.style.right==='0px' ? '-230px' : '0px';
+
+/* NAV */
+function show(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav a').forEach(a=>a.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
 }
-function showPage(id){
- document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
- document.getElementById(id).classList.add('active');
- if(innerWidth<768) document.getElementById('nav').style.right='-230px';
+
+/* COPY */
+function copyText(text){
+  navigator.clipboard.writeText(text);
+  let t=document.getElementById('toast');
+  t.style.display='block';
+  setTimeout(()=>t.style.display='none',1800);
 }
 </script>
 
