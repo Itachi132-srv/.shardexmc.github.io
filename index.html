@@ -42,10 +42,25 @@ header{
   backdrop-filter:blur(8px);
   z-index:999;
 }
-header h1{
-  font-size:1.4rem;
+.title{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  font-size:1.3rem;
   color:orange;
   letter-spacing:2px;
+}
+.animate-text{
+  color:#fff;
+  animation:fadeText 6s infinite;
+}
+
+@keyframes fadeText{
+  0%{opacity:0}
+  10%{opacity:1}
+  40%{opacity:1}
+  50%{opacity:0}
+  100%{opacity:0}
 }
 
 /* ===== MENU ===== */
@@ -101,30 +116,29 @@ section.active{display:block}
 }
 .copy{
   cursor:pointer;
-  transition:.3s;
 }
-.copy:hover{
-  color:orange;
-}
+.copy:hover{color:orange}
 
-/* ===== DISCORD BUTTON (UPGRADED) ===== */
+/* ===== DISCORD BUTTON ===== */
 .discord-btn{
   display:inline-flex;
   align-items:center;
-  gap:10px;
-  margin-top:20px;
+  gap:12px;
+  margin-top:22px;
   padding:14px 32px;
   background:linear-gradient(135deg,#5865F2,#404EED);
   border-radius:14px;
   color:white;
   text-decoration:none;
   font-weight:800;
-  box-shadow:0 0 30px rgba(88,101,242,.6);
+  box-shadow:0 0 35px rgba(88,101,242,.7);
   transition:.35s;
 }
+.discord-btn img{
+  width:26px;
+}
 .discord-btn:hover{
-  transform:translateY(-4px) scale(1.05);
-  box-shadow:0 0 45px rgba(88,101,242,.9);
+  transform:translateY(-4px) scale(1.06);
 }
 
 /* ===== CARDS ===== */
@@ -168,6 +182,20 @@ section.active{display:block}
   box-shadow:0 0 18px rgba(255,165,0,.3);
 }
 
+/* ===== TOAST ===== */
+.toast{
+  position:fixed;
+  bottom:25px;
+  right:25px;
+  background:orange;
+  color:#000;
+  padding:12px 22px;
+  border-radius:12px;
+  font-weight:800;
+  display:none;
+  box-shadow:0 0 30px rgba(255,165,0,.9);
+}
+
 /* ===== DESKTOP ===== */
 @media(min-width:768px){
   nav{
@@ -188,32 +216,40 @@ section.active{display:block}
 <body>
 
 <header>
-<h1>SHARDEX NETWORK</h1>
-<div class="menu-btn" onclick="toggleMenu()">
-<span></span><span></span><span></span>
-</div>
-<nav id="nav">
-<a onclick="showPage('home')">Home</a>
-<a onclick="showPage('shop')">Shop</a>
-<a onclick="showPage('staff')">Staff</a>
-<a onclick="showPage('features')">Features</a>
-<a onclick="showPage('sneak')">Sneak Peeks</a>
-</nav>
+  <div class="title">
+    SHARDEX NETWORK
+    <span class="animate-text" id="cycle">Minecraft</span>
+  </div>
+
+  <div class="menu-btn" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+
+  <nav id="nav">
+    <a onclick="showPage('home')">Home</a>
+    <a onclick="showPage('shop')">Shop</a>
+    <a onclick="showPage('staff')">Staff</a>
+    <a onclick="showPage('features')">Features</a>
+    <a onclick="showPage('sneak')">Sneak Peeks</a>
+  </nav>
 </header>
 
 <!-- HOME -->
 <section id="home" class="active">
 <h2>Shardex Network</h2>
+
 <div class="server-box">
-<p class="copy" onclick="copyText('shardexmcs2.aternos.me')">
-IP: <b>shardexmcs2.aternos.me</b>
-</p>
-<p class="copy" onclick="copyText('14060')">
-Port: <b>14060</b>
-</p>
+  <p class="copy" onclick="copyText('shardexmcs2.aternos.me')">
+    IP: <b>shardexmcs2.aternos.me</b>
+  </p>
+  <p class="copy" onclick="copyText('14060')">
+    Port: <b>14060</b>
+  </p>
 </div>
+
 <a class="discord-btn" href="https://discord.gg/JKjxfYVF2b" target="_blank">
-Join Discord
+  <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png">
+  Join Discord
 </a>
 </section>
 
@@ -263,7 +299,10 @@ Join Discord
 </div>
 </section>
 
+<div class="toast" id="toast">Copied!</div>
+
 <script>
+/* particles */
 for(let i=0;i<45;i++){
  let d=document.createElement('div');
  d.className='dot';
@@ -273,21 +312,34 @@ for(let i=0;i<45;i++){
  document.body.appendChild(d);
 }
 
+/* menu */
 function toggleMenu(){
  let n=document.getElementById('nav');
  n.style.right = n.style.right==='0px' ? '-230px' : '0px';
 }
 
+/* pages */
 function showPage(id){
  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
  document.getElementById(id).classList.add('active');
  if(innerWidth<768) document.getElementById('nav').style.right='-230px';
 }
 
+/* copy */
 function copyText(text){
  navigator.clipboard.writeText(text);
- alert("Copied: " + text);
+ let t=document.getElementById('toast');
+ t.style.display='block';
+ setTimeout(()=>t.style.display='none',1200);
 }
+
+/* header text cycle */
+const words=["Minecraft","Lifesteal"];
+let i=0;
+setInterval(()=>{
+ document.getElementById('cycle').textContent=words[i];
+ i=(i+1)%words.length;
+},3000);
 </script>
 
 </body>
