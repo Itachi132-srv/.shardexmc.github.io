@@ -3,19 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Shardex Network</title>
 
 <!-- Minecraft Font -->
 <link href="https://fonts.cdnfonts.com/css/minecraft-4" rel="stylesheet">
 
-<!-- Discord Icon -->
+<!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-:root {
+:root{
   --orange:#ff9800;
-  --dark:#000;
 }
 
 /* RESET */
@@ -29,18 +27,19 @@ body{
   overflow-x:hidden;
 }
 
-/* FLOATING DOTS */
+/* FLOATING ORANGE DOTS */
 .dots span{
   position:fixed;
-  width:6px;height:6px;
+  bottom:-10px;
+  width:6px;
+  height:6px;
   background:orange;
   border-radius:50%;
   animation:float 10s linear infinite;
   opacity:.6;
 }
 @keyframes float{
-  from{transform:translateY(100vh)}
-  to{transform:translateY(-10vh)}
+  to{transform:translateY(-110vh)}
 }
 
 /* HEADER */
@@ -50,41 +49,40 @@ header{
   padding:15px;
 }
 .logo{
-  width:45px;margin-right:10px;
+  width:42px;
+  margin-right:10px;
 }
 .title{
   font-size:18px;
-  animation:titleAnim 6s infinite;
+  letter-spacing:1px;
 }
-@keyframes titleAnim{
-  0%{opacity:0}20%{opacity:1;content:"Shardex Network"}
-  40%{opacity:1}60%{opacity:1}
-  80%{opacity:1}
-}
-
-/* MENU */
 .menu-btn{
   margin-left:auto;
   font-size:26px;
   cursor:pointer;
 }
+
+/* SIDEBAR */
 nav{
   position:fixed;
-  top:0;left:-240px;
-  width:220px;height:100%;
+  top:0;
+  left:-240px;
+  width:220px;
+  height:100%;
   background:#111;
   transition:.4s;
-  padding-top:60px;
+  padding-top:70px;
+  z-index:5;
 }
 nav a{
   display:block;
-  padding:15px;
+  padding:15px 20px;
   color:#fff;
   text-decoration:none;
   border-left:4px solid transparent;
 }
 nav a:hover{
-  background:#222;
+  background:#1b1b1b;
   border-left:4px solid var(--orange);
 }
 nav.show{left:0}
@@ -104,9 +102,9 @@ section.active{display:block}
   max-width:320px;
   border-radius:10px;
   cursor:pointer;
+  text-align:center;
 }
 .copy-box:hover{background:#1a1a1a}
-.small{font-family:Arial,sans-serif}
 
 /* POPUP */
 .popup{
@@ -120,26 +118,30 @@ section.active{display:block}
   border-radius:20px;
   display:none;
   font-family:Arial,sans-serif;
+  font-weight:bold;
 }
 
-/* DISCORD */
+/* DISCORD BUTTON */
 .discord-btn{
   display:inline-flex;
   align-items:center;
   gap:10px;
-  padding:12px 20px;
+  padding:12px 22px;
   background:#5865F2;
   border-radius:30px;
   color:white;
   text-decoration:none;
   margin-top:20px;
 }
-.discord-btn i{font-size:20px}
+.discord-btn i{
+  color:#000; /* BLACK ICON */
+  font-size:20px;
+}
 
-/* STAFF CARDS */
+/* STAFF */
 .card{
   padding:15px;
-  margin:10px 0;
+  margin:12px 0;
   border-radius:12px;
 }
 .orange{background:#ff9800}
@@ -154,7 +156,6 @@ section.active{display:block}
   margin:10px 0;
   border-radius:12px;
 }
-.rank img{width:60px}
 
 /* RESPONSIVE */
 @media(min-width:768px){
@@ -168,22 +169,23 @@ section.active{display:block}
 <div class="dots">
   <span style="left:10%;animation-duration:12s"></span>
   <span style="left:30%;animation-duration:9s"></span>
-  <span style="left:60%;animation-duration:14s"></span>
-  <span style="left:80%;animation-duration:11s"></span>
+  <span style="left:50%;animation-duration:14s"></span>
+  <span style="left:70%;animation-duration:11s"></span>
+  <span style="left:90%;animation-duration:10s"></span>
 </div>
 
 <header>
   <img src="logo.png" class="logo">
-  <div class="title" id="animatedText">Shardex Network</div>
+  <div class="title">Shardex Network</div>
   <div class="menu-btn" onclick="toggleMenu()">☰</div>
 </header>
 
 <nav id="menu">
-  <a onclick="show('home')">Home</a>
-  <a onclick="show('shop')">Shop</a>
-  <a onclick="show('staff')">Staff</a>
-  <a onclick="show('features')">Features</a>
-  <a onclick="show('sneak')">Sneak Peeks</a>
+  <a onclick="showPage('home')">Home</a>
+  <a onclick="showPage('shop')">Shop</a>
+  <a onclick="showPage('staff')">Staff</a>
+  <a onclick="showPage('features')">Features</a>
+  <a onclick="showPage('sneak')">Sneak Peeks</a>
 </nav>
 
 <!-- HOME -->
@@ -232,19 +234,23 @@ section.active{display:block}
   </ul>
 </section>
 
-<!-- SNEAK -->
+<!-- SNEAK PEEKS -->
 <section id="sneak">
-  <p>[ Image Preview Slot ]</p>
-  <p>[ Image Preview Slot ]</p>
+  <p>[ Image Slot ]</p>
+  <p>[ Image Slot ]</p>
+  <p>[ Image Slot ]</p>
 </section>
 
 <div class="popup" id="popup">Copied!</div>
 
 <script>
 const menu=document.getElementById("menu");
-function toggleMenu(){menu.classList.toggle("show")}
 
-function show(id){
+function toggleMenu(){
+  menu.classList.toggle("show");
+}
+
+function showPage(id){
   document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
   document.getElementById(id).classList.add("active");
   menu.classList.remove("show");
@@ -257,14 +263,6 @@ function copyText(text){
   setTimeout(()=>pop.style.display="none",1500);
   new Audio("copy.mp3").play().catch(()=>{});
 }
-
-/* Animated Title */
-const words=["Shardex Network","Minecraft","Lifesteal"];
-let i=0;
-setInterval(()=>{
-  document.getElementById("animatedText").innerText=words[i];
-  i=(i+1)%words.length;
-},2000);
 </script>
 
 </body>
