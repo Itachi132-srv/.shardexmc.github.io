@@ -3,343 +3,268 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shardex Network • Official Server</title>
+
+<title>Shardex Network</title>
+
+<!-- Minecraft Font -->
+<link href="https://fonts.cdnfonts.com/css/minecraft-4" rel="stylesheet">
+
+<!-- Discord Icon -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap');
+:root {
+  --orange:#ff9800;
+  --dark:#000;
+}
 
+/* RESET */
 *{margin:0;padding:0;box-sizing:border-box}
+
+/* BODY */
 body{
-  font-family:'Orbitron',sans-serif;
-  background:#050505;
+  font-family:'Minecraft',sans-serif;
+  background:#000;
   color:#fff;
   overflow-x:hidden;
 }
 
-/* ===== PARTICLES ===== */
-.dot{
-  position:absolute;
+/* FLOATING DOTS */
+.dots span{
+  position:fixed;
+  width:6px;height:6px;
   background:orange;
   border-radius:50%;
-  opacity:.7;
-  animation:float linear infinite;
+  animation:float 10s linear infinite;
+  opacity:.6;
 }
 @keyframes float{
-  from{transform:translateY(-10vh)}
-  to{transform:translateY(110vh)}
+  from{transform:translateY(100vh)}
+  to{transform:translateY(-10vh)}
 }
 
-/* ===== HEADER ===== */
+/* HEADER */
 header{
-  position:fixed;
-  top:0;left:0;
-  width:100%;
-  padding:16px 22px;
   display:flex;
-  justify-content:space-between;
   align-items:center;
-  background:rgba(0,0,0,.85);
-  backdrop-filter:blur(8px);
-  z-index:999;
+  padding:15px;
+}
+.logo{
+  width:45px;margin-right:10px;
 }
 .title{
-  display:flex;
-  gap:10px;
-  align-items:center;
-  font-size:1.3rem;
-  color:orange;
-  letter-spacing:2px;
+  font-size:18px;
+  animation:titleAnim 6s infinite;
 }
-.animate-text{
-  color:#fff;
-  animation:fadeText 6s infinite;
+@keyframes titleAnim{
+  0%{opacity:0}20%{opacity:1;content:"Shardex Network"}
+  40%{opacity:1}60%{opacity:1}
+  80%{opacity:1}
 }
 
-@keyframes fadeText{
-  0%{opacity:0}
-  10%{opacity:1}
-  40%{opacity:1}
-  50%{opacity:0}
-  100%{opacity:0}
-}
-
-/* ===== MENU ===== */
+/* MENU */
 .menu-btn{
-  width:30px;
+  margin-left:auto;
+  font-size:26px;
   cursor:pointer;
 }
-.menu-btn span{
-  display:block;
-  height:4px;
-  background:orange;
-  margin:5px 0;
-  border-radius:2px;
-}
-
 nav{
   position:fixed;
-  top:70px;
-  right:-230px;
-  width:200px;
-  height:calc(100vh - 70px);
-  background:#0a0a0a;
+  top:0;left:-240px;
+  width:220px;height:100%;
+  background:#111;
   transition:.4s;
-  padding-top:25px;
+  padding-top:60px;
 }
 nav a{
   display:block;
-  padding:14px 22px;
+  padding:15px;
   color:#fff;
   text-decoration:none;
-  transition:.3s;
+  border-left:4px solid transparent;
 }
 nav a:hover{
-  background:orange;
-  color:#000;
+  background:#222;
+  border-left:4px solid var(--orange);
 }
+nav.show{left:0}
 
-/* ===== SECTIONS ===== */
+/* SECTIONS */
 section{
   display:none;
-  padding:120px 18px 60px;
-  text-align:center;
+  padding:40px 20px;
 }
 section.active{display:block}
 
-/* ===== HOME ===== */
-.server-box{
-  margin-top:20px;
-  padding:18px;
-  border-radius:14px;
-  background:rgba(255,165,0,.15);
-  box-shadow:0 0 25px rgba(255,165,0,.25);
-}
-.copy{
+/* HOME */
+.copy-box{
+  background:#111;
+  padding:15px;
+  margin:15px auto;
+  max-width:320px;
+  border-radius:10px;
   cursor:pointer;
 }
-.copy:hover{color:orange}
+.copy-box:hover{background:#1a1a1a}
+.small{font-family:Arial,sans-serif}
 
-/* ===== DISCORD BUTTON ===== */
+/* POPUP */
+.popup{
+  position:fixed;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  background:orange;
+  color:#000;
+  padding:10px 20px;
+  border-radius:20px;
+  display:none;
+  font-family:Arial,sans-serif;
+}
+
+/* DISCORD */
 .discord-btn{
   display:inline-flex;
   align-items:center;
-  gap:12px;
-  margin-top:22px;
-  padding:14px 32px;
-  background:linear-gradient(135deg,#5865F2,#404EED);
-  border-radius:14px;
+  gap:10px;
+  padding:12px 20px;
+  background:#5865F2;
+  border-radius:30px;
   color:white;
   text-decoration:none;
-  font-weight:800;
-  box-shadow:0 0 35px rgba(88,101,242,.7);
-  transition:.35s;
+  margin-top:20px;
 }
-.discord-btn img{
-  width:26px;
-}
-.discord-btn:hover{
-  transform:translateY(-4px) scale(1.06);
-}
+.discord-btn i{font-size:20px}
 
-/* ===== CARDS ===== */
-.cards{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:22px;
-  margin-top:35px;
-}
+/* STAFF CARDS */
 .card{
-  width:160px;
-  padding:20px;
-  border-radius:16px;
-  background:rgba(255,255,255,.05);
-  backdrop-filter:blur(6px);
-  box-shadow:0 0 18px rgba(255,165,0,.25);
-  transition:.35s;
-}
-.card:hover{
-  transform:translateY(-8px) scale(1.05);
-  box-shadow:0 0 35px orange;
-}
-.card img{
-  width:80px;height:80px;
-  margin-bottom:12px;
-}
-
-/* ===== STAFF COLORS ===== */
-.founder{background:linear-gradient(135deg,#ff8c00,#ffb347)}
-.xfounder{background:linear-gradient(135deg,#00e5ff,#80d8ff);color:#000}
-.coowner{background:linear-gradient(135deg,#ff1744,#ff616f)}
-.admin{background:linear-gradient(135deg,#2979ff,#82b1ff)}
-
-/* ===== SNEAK ===== */
-.placeholder{
-  width:150px;
-  height:150px;
-  border-radius:14px;
-  background:rgba(255,165,0,.15);
-  box-shadow:0 0 18px rgba(255,165,0,.3);
-}
-
-/* ===== TOAST ===== */
-.toast{
-  position:fixed;
-  bottom:25px;
-  right:25px;
-  background:orange;
-  color:#000;
-  padding:12px 22px;
+  padding:15px;
+  margin:10px 0;
   border-radius:12px;
-  font-weight:800;
-  display:none;
-  box-shadow:0 0 30px rgba(255,165,0,.9);
 }
+.orange{background:#ff9800}
+.cyan{background:#00bcd4}
+.red{background:#f44336}
+.blue{background:#2196f3}
 
-/* ===== DESKTOP ===== */
+/* SHOP */
+.rank{
+  background:#111;
+  padding:15px;
+  margin:10px 0;
+  border-radius:12px;
+}
+.rank img{width:60px}
+
+/* RESPONSIVE */
 @media(min-width:768px){
-  nav{
-    position:relative;
-    right:0;
-    height:auto;
-    display:flex;
-    flex-direction:row;
-    background:transparent;
-    padding:0;
-  }
-  nav a{padding:8px 14px}
-  .menu-btn{display:none}
+  section{max-width:900px;margin:auto}
 }
 </style>
 </head>
-
 <body>
 
+<!-- FLOATING DOTS -->
+<div class="dots">
+  <span style="left:10%;animation-duration:12s"></span>
+  <span style="left:30%;animation-duration:9s"></span>
+  <span style="left:60%;animation-duration:14s"></span>
+  <span style="left:80%;animation-duration:11s"></span>
+</div>
+
 <header>
-  <div class="title">
-    SHARDEX NETWORK
-    <span class="animate-text" id="cycle">Minecraft</span>
-  </div>
-
-  <div class="menu-btn" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
-  </div>
-
-  <nav id="nav">
-    <a onclick="showPage('home')">Home</a>
-    <a onclick="showPage('shop')">Shop</a>
-    <a onclick="showPage('staff')">Staff</a>
-    <a onclick="showPage('features')">Features</a>
-    <a onclick="showPage('sneak')">Sneak Peeks</a>
-  </nav>
+  <img src="logo.png" class="logo">
+  <div class="title" id="animatedText">Shardex Network</div>
+  <div class="menu-btn" onclick="toggleMenu()">☰</div>
 </header>
+
+<nav id="menu">
+  <a onclick="show('home')">Home</a>
+  <a onclick="show('shop')">Shop</a>
+  <a onclick="show('staff')">Staff</a>
+  <a onclick="show('features')">Features</a>
+  <a onclick="show('sneak')">Sneak Peeks</a>
+</nav>
 
 <!-- HOME -->
 <section id="home" class="active">
-<h2>Shardex Network</h2>
+  <h2>SERVER IP</h2>
+  <div class="copy-box" onclick="copyText('shardexmcs2.aternos.me')">
+    shardexmcs2.aternos.me
+  </div>
 
-<div class="server-box">
-  <p class="copy" onclick="copyText('shardexmcs2.aternos.me')">
-    IP: <b>shardexmcs2.aternos.me</b>
-  </p>
-  <p class="copy" onclick="copyText('14060')">
-    Port: <b>14060</b>
-  </p>
-</div>
+  <h2>PORT</h2>
+  <div class="copy-box" onclick="copyText('14060')">
+    14060
+  </div>
 
-<a class="discord-btn" href="https://discord.gg/JKjxfYVF2b" target="_blank">
-  <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png">
-  Join Discord
-</a>
+  <a class="discord-btn" href="https://discord.gg/JKjxfYVF2b" target="_blank">
+    <i class="fab fa-discord"></i> Join Discord
+  </a>
 </section>
 
 <!-- SHOP -->
 <section id="shop">
-<h2>Ranks Shop</h2>
-<div class="cards">
-<div class="card"><img src="pixie_cookie.png"><h3>Cookie</h3></div>
-<div class="card"><img src="pixie_potato.png"><h3>Potato</h3></div>
-<div class="card"><img src="pixie_pink_cherry.png"><h3>Cherry</h3></div>
-<div class="card"><img src="pixie_lychee.png"><h3>Lychee</h3></div>
-<div class="card"><img src="pixie_apple.png"><h3>Apple</h3></div>
-</div>
+  <h2>RANKS</h2>
+  <div class="rank">🍪 Pixie Cookie</div>
+  <div class="rank">🥔 Pixie Potato</div>
+  <div class="rank">🍒 Pixie Pink Cherry</div>
+  <div class="rank">🍈 Pixie Lychee</div>
+  <div class="rank">🍎 Pixie Apple</div>
 </section>
 
 <!-- STAFF -->
 <section id="staff">
-<h2>Server Staff</h2>
-<div class="cards">
-<div class="card founder">.helloshardex<br>Founder</div>
-<div class="card xfounder">Surydipgohil1<br>X Founder</div>
-<div class="card coowner">M.zarrar<br>Co Owner</div>
-<div class="card admin">NotxKaizen<br>Admin</div>
-</div>
+  <div class="card orange">helloshardex<br>Founder</div>
+  <div class="card cyan">Surydipgohil1<br>X Founder</div>
+  <div class="card red">M.zarrar<br>Co Owner</div>
+  <div class="card blue">NotxKaizen<br>Admin</div>
 </section>
 
 <!-- FEATURES -->
 <section id="features">
-<h2>Server Features</h2>
-<div class="cards">
-<div class="card">Crates</div>
-<div class="card">Shop</div>
-<div class="card">Ranks</div>
-<div class="card">Kits</div>
-<div class="card">Giveaways</div>
-</div>
+  <ul>
+    <li>Crates</li>
+    <li>Shop</li>
+    <li>Ranks</li>
+    <li>Kits</li>
+    <li>Giveaway</li>
+  </ul>
 </section>
 
 <!-- SNEAK -->
 <section id="sneak">
-<h2>Sneak Peeks</h2>
-<div class="cards">
-<div class="placeholder"></div>
-<div class="placeholder"></div>
-<div class="placeholder"></div>
-<div class="placeholder"></div>
-</div>
+  <p>[ Image Preview Slot ]</p>
+  <p>[ Image Preview Slot ]</p>
 </section>
 
-<div class="toast" id="toast">Copied!</div>
+<div class="popup" id="popup">Copied!</div>
 
 <script>
-/* particles */
-for(let i=0;i<45;i++){
- let d=document.createElement('div');
- d.className='dot';
- d.style.left=Math.random()*100+'vw';
- d.style.width=d.style.height=5+Math.random()*10+'px';
- d.style.animationDuration=4+Math.random()*6+'s';
- document.body.appendChild(d);
+const menu=document.getElementById("menu");
+function toggleMenu(){menu.classList.toggle("show")}
+
+function show(id){
+  document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  menu.classList.remove("show");
 }
 
-/* menu */
-function toggleMenu(){
- let n=document.getElementById('nav');
- n.style.right = n.style.right==='0px' ? '-230px' : '0px';
-}
-
-/* pages */
-function showPage(id){
- document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
- document.getElementById(id).classList.add('active');
- if(innerWidth<768) document.getElementById('nav').style.right='-230px';
-}
-
-/* copy */
 function copyText(text){
- navigator.clipboard.writeText(text);
- let t=document.getElementById('toast');
- t.style.display='block';
- setTimeout(()=>t.style.display='none',1200);
+  navigator.clipboard.writeText(text);
+  const pop=document.getElementById("popup");
+  pop.style.display="block";
+  setTimeout(()=>pop.style.display="none",1500);
+  new Audio("copy.mp3").play().catch(()=>{});
 }
 
-/* header text cycle */
-const words=["Minecraft","Lifesteal"];
+/* Animated Title */
+const words=["Shardex Network","Minecraft","Lifesteal"];
 let i=0;
 setInterval(()=>{
- document.getElementById('cycle').textContent=words[i];
- i=(i+1)%words.length;
-},3000);
+  document.getElementById("animatedText").innerText=words[i];
+  i=(i+1)%words.length;
+},2000);
 </script>
 
 </body>
